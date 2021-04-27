@@ -19,8 +19,8 @@
                 <tr>
                     <td>@trip.Employee.firstName</td>
                     <td>@trip.Employee.lastName</td>
-                    <td>@trip.Employee.Position.positionName</td>
-                    <td>@trip.Employee.Position.salary</td>
+                    <td>@trip.Employee.Position?.positionName</td>
+                    <td>@trip.Employee.Position?.salary</td>
                     <td>@trip.city</td>
                     <td>@trip.departureDate.ToString("dd.mm.yyyy")</td>
                     <td>@trip.arrivalDate.ToString("dd.mm.yyyy")</td>
@@ -48,8 +48,8 @@
                     <ul>
                         <li>@trip.Employee.firstName</li>
                         <li>@trip.Employee.lastName</li>
-                        <li>@trip.Employee.Position.positionName</li>
-                        <li>@trip.Employee.Position.salary</li>
+                        <li>@trip.Employee.Position?.positionName</li>
+                        <li>@trip.Employee.Position?.salary</li>
                         <li>@trip.city</li>
                         <li>@trip.departureDate.ToString("dd.mm.yyyy")</li>
                         <li>@trip.arrivalDate.ToString("dd.mm.yyyy")</li>

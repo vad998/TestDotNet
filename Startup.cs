@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using TestDotNet.Data;
 using TestDotNet.Data.Interfaces;
 using TestDotNet.Data.Repository;
-using TestDotNet.Data.Mocks;
 
 namespace TestDotNet
 {
@@ -25,9 +24,9 @@ namespace TestDotNet
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDBContext>(options => options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection")));
-            services.AddTransient<IBusinessTrip, MockBusinessTrip>();
-            services.AddTransient<IEmployee, MockEmployee>();
-            services.AddTransient<IPosition, MockPosition>();
+            services.AddTransient<IBusinessTrip, BusinessTripRepository>();
+            services.AddTransient<IEmployee, EmployeeRepository>();
+            services.AddTransient<IPosition, PositionRepository>();
             services.AddMvc(options => options.EnableEndpointRouting = false);
         }
 
@@ -39,11 +38,11 @@ namespace TestDotNet
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
 
-            // using (var scope = app.ApplicationServices.CreateScope())
-            // {
-            //     AppDBContext context = scope.ServiceProvider.GetRequiredService<AppDBContext>();
-            //     DBObjects.Initial(context);
-            // }
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                AppDBContext context = scope.ServiceProvider.GetRequiredService<AppDBContext>();
+                DBObjects.Initial(context);
+            }
         }
     }
 }

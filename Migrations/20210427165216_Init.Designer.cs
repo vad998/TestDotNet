@@ -10,8 +10,8 @@ using TestDotNet.Data;
 namespace TestDotNet.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20210425185448_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20210427165216_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,9 +28,6 @@ namespace TestDotNet.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Employeeid")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<DateTime>("arrivalDate")
                         .HasColumnType("datetime2");
 
@@ -45,15 +42,17 @@ namespace TestDotNet.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("Employeeid");
+                    b.HasIndex("employeeId");
 
                     b.ToTable("BusinessTrip");
                 });
 
             modelBuilder.Entity("TestDotNet.Data.Models.Employee", b =>
                 {
-                    b.Property<string>("id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("firstName")
                         .HasColumnType("nvarchar(max)");
@@ -96,7 +95,9 @@ namespace TestDotNet.Migrations
                 {
                     b.HasOne("TestDotNet.Data.Models.Employee", "Employee")
                         .WithMany("businessTrips")
-                        .HasForeignKey("Employeeid");
+                        .HasForeignKey("employeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Employee");
                 });

@@ -19,7 +19,7 @@ namespace TestDotNet.Data
 
             if(!context.Employee.Any())
             {
-                 context.Employee.AddRange(GetEmployees.Select(e => e.Value));
+                context.Employee.AddRange(GetEmployees.Select(e => e.Value));
             }
 
             if(!context.BusinessTrip.Any())
@@ -112,7 +112,6 @@ namespace TestDotNet.Data
                     {
                         new Employee
                         {
-                            id = "1",
                             firstName = "Даниил",
                             lastName = "Соловьёв",
                             middleName = "Эльдарович",
@@ -120,7 +119,6 @@ namespace TestDotNet.Data
                         },
                         new Employee
                         {
-                            id = "2",
                             firstName = "Вадим",
                             lastName = "Зыков",
                             middleName = "Русланович",

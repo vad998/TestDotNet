@@ -4,7 +4,7 @@ namespace TestDotNet.Data.Models
 {
     public class Employee
     {
-        public string id { get; set; }
+        public int id { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
         public string middleName { get; set; }

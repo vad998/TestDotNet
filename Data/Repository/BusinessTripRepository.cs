@@ -14,7 +14,7 @@ namespace TestDotNet.Data.Repository
             this.appDBContext = appDBContext;
         }
 
-        public IEnumerable<Models.BusinessTrip> BusinessTrips => appDBContext.BusinessTrip.Include(b => b.Employee);
+        public IEnumerable<Models.BusinessTrip> BusinessTrips => appDBContext.BusinessTrip.Include(b => b.Employee).Include(e => e.Employee.Position);
 
         public Models.BusinessTrip getBusinessTrip(int businessTripId) => appDBContext.BusinessTrip.FirstOrDefault(b => b.id == businessTripId);
     }

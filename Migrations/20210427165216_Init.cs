@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TestDotNet.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -25,7 +25,8 @@ namespace TestDotNet.Migrations
                 name: "Employee",
                 columns: table => new
                 {
-                    id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     firstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     lastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     middleName = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -51,24 +52,23 @@ namespace TestDotNet.Migrations
                     city = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     departureDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     arrivalDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    employeeId = table.Column<int>(type: "int", nullable: false),
-                    Employeeid = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    employeeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_BusinessTrip", x => x.id);
                     table.ForeignKey(
-                        name: "FK_BusinessTrip_Employee_Employeeid",
-                        column: x => x.Employeeid,
+                        name: "FK_BusinessTrip_Employee_employeeId",
+                        column: x => x.employeeId,
                         principalTable: "Employee",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_BusinessTrip_Employeeid",
+                name: "IX_BusinessTrip_employeeId",
                 table: "BusinessTrip",
-                column: "Employeeid");
+                column: "employeeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Employee_positionId",
