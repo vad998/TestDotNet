@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using TestDotNet.Data.Interfaces;
+using TestDotNet.Data.Models;
 
 namespace TestDotNet.Data.Repository
 {
@@ -14,8 +16,30 @@ namespace TestDotNet.Data.Repository
             this.appDBContext = appDBContext;
         }
 
-        public IEnumerable<Models.BusinessTrip> BusinessTrips => appDBContext.BusinessTrip.Include(b => b.Employee).Include(e => e.Employee.Position);
+        public IEnumerable<BusinessTrip> GetBusinessTrips => appDBContext.BusinessTrip.Include(b => b.Employee).Include(e => e.Employee.Position);
 
-        public Models.BusinessTrip getBusinessTrip(int businessTripId) => appDBContext.BusinessTrip.FirstOrDefault(b => b.id == businessTripId);
+        public BusinessTrip GetBusinessTripById(int businessTripId) => appDBContext.BusinessTrip.FirstOrDefault(b => b.id == businessTripId);
+
+        public int SaveBusinessTrip(BusinessTrip businessTrip)
+        {
+            if (businessTrip.id == default)
+            {
+                appDBContext.Entry(businessTrip).State = EntityState.Added;
+            }
+            else
+            {
+                appDBContext.Entry(businessTrip).State = EntityState.Modified;
+            }
+
+            appDBContext.SaveChanges();
+
+            return businessTrip.id;
+        }
+
+        public void DeleteBusinessTrip(BusinessTrip businessTrip)
+        {
+            appDBContext.Entry(businessTrip).State = EntityState.Deleted;
+            appDBContext.SaveChanges();
+        }
     }
 }

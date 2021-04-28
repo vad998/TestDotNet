@@ -5,7 +5,9 @@ namespace TestDotNet.Data.Interfaces
 {
     public interface IBusinessTrip
     {
-        IEnumerable<BusinessTrip> BusinessTrips { get; }
-        BusinessTrip getBusinessTrip(int businessTripId);
+        IEnumerable<BusinessTrip> GetBusinessTrips { get; }
+        BusinessTrip GetBusinessTripById(int businessTripId);
+        int SaveBusinessTrip(BusinessTrip businessTrip);
+        void DeleteBusinessTrip(BusinessTrip businessTrip);
     }
 }
