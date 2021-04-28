@@ -9,23 +9,26 @@ namespace TestDotNet.Controllers
     public class HomeController : Controller
     {
         private IBusinessTrip _businessTrip;
+        private IEmployee _employee;
 
-        public HomeController(IBusinessTrip businessTrip)
+        public HomeController(IBusinessTrip businessTrip, IEmployee employee)
         {
             _businessTrip = businessTrip;
+            _employee = employee;
         }
 
         public ViewResult Index()
         {
             var businessTrips = new HomeViewModel
             {
-                BusinessTrips = _businessTrip.GetBusinessTrips
+                BusinessTrips = _businessTrip.GetBusinessTrips,
+                Employees = _employee.GetEmployees
             };
 
             return View(businessTrips);
         }
 
-        [Route("Home/SaveBusinessTrip/{businessTrip}")]
+        [Route("Home/SaveBusinessTrip")]
         public RedirectToActionResult SaveBusinessTrip(BusinessTrip businessTrip)
         {
             _businessTrip.SaveBusinessTrip(businessTrip);

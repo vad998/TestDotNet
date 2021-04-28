@@ -25,6 +25,7 @@ namespace TestDotNet
         {
             services.AddDbContext<AppDBContext>(options => options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<IBusinessTrip, BusinessTripRepository>();
+            services.AddTransient<IEmployee, EmployeeRepository>();
             services.AddMvc(options => options.EnableEndpointRouting = false);
         }
 
