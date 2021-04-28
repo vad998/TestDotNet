@@ -7,7 +7,7 @@ namespace TestDotNet.Data.Interfaces
     {
         IEnumerable<BusinessTrip> GetBusinessTrips { get; }
         BusinessTrip GetBusinessTripById(int businessTripId);
-        int SaveBusinessTrip(BusinessTrip businessTrip);
-        void DeleteBusinessTrip(BusinessTrip businessTrip);
+        void SaveBusinessTrip(BusinessTrip businessTrip);
+        void DeleteBusinessTrip(int id);
     }
 }

@@ -10,6 +10,8 @@
             <th scope="col">Город</th>
             <th scope="col">Время отъезда</th>
             <th scope="col">Время приезда</th>
+            <th scope="col">Изменить</th>
+            <th scope="col">Удалить</th>
         </tr>
     </thead>
     <tbody>
@@ -24,13 +26,8 @@
                     <td>@trip.city</td>
                     <td>@trip.departureDate.ToString("dd.mm.yyyy")</td>
                     <td>@trip.arrivalDate.ToString("dd.mm.yyyy")</td>
-                    <td><a action="BusinessTripEdit" route-id="@trip.id">Изменить</a></td>
-                    <td>
-                        <form action="BusinessTripDelete" method="post">
-                            <input type="hidden" value="@trip.id" name="id">
-                            <input type="submit" value="Удалить">
-                        </form>
-                    </td>
+                    <td><a href="Home/SaveBusinessTrip/{@trip}">Изменить</a></td>
+                    <td><a href="Home/DeleteBusinessTrip/{@trip.id}">Удалить</a></td>
                 </tr>
             }
         }
@@ -51,9 +48,7 @@
                         <li>Город</li>
                         <li>Время отъезда</li>
                         <li>Время приезда</li>
-                        <li>
-                            <a action="BusinessTripEdit" route-id="@trip.id">Изменить</a>
-                        </li>
+                        <li><a href="Home/SaveBusinessTrip/{@trip}">Изменить</a></li>
                     </ul>
                     <ul>
                         <li>@trip.Employee.firstName</li>
@@ -63,12 +58,7 @@
                         <li>@trip.city</li>
                         <li>@trip.departureDate.ToString("dd.mm.yyyy")</li>
                         <li>@trip.arrivalDate.ToString("dd.mm.yyyy")</li>
-                        <li>
-                            <form action="BusinessTripDelete" method="post">
-                                <input type="hidden" value="@trip.id" name="id">
-                                <input type="submit" value="Удалить">
-                            </form>
-                        </li>
+                        <li><a href="Home/DeleteBusinessTrip/{@trip.id}">Удалить</a></li>
                     </ul>
                 </li>
             }
@@ -77,5 +67,18 @@
 </div>
 
 <div>
-    <a action="BusinessTripEdit">Добавить</a>
+    <button type="button" data-toggle="ajax-modal" data-target="#editTrip">Добавить</button>
+</div>
+
+<div class="modal fade" id="editTrip">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Business Trip</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>x</span>
+                </button>
+            </div>
+        </div>
+    </div>
 </div>

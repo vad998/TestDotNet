@@ -14,31 +14,6 @@ namespace TestDotNet.Controllers
             _businessTrip = businessTrip;
         }
 
-        public IActionResult BusinessTripEdit(int id)
-        {
-            BusinessTrip businessTrip = id == default ? new BusinessTrip() : _businessTrip.GetBusinessTripById(id);
-            return View(businessTrip);
-        }
-
-        [HttpPost]
-        public IActionResult BusinessTripEdit(BusinessTrip businessTrip)
-        {
-            if (ModelState.IsValid)
-            {
-                _businessTrip.SaveBusinessTrip(businessTrip);
-                return RedirectToAction("Index");
-            }
-
-            return View(businessTrip);
-        }
-
-        [HttpPost]
-        public IActionResult BusinessTripDelete(int id)
-        {
-            _businessTrip.DeleteBusinessTrip(new BusinessTrip { id = id });
-            return RedirectToAction("Index");
-        }
-
         public ViewResult Index()
         {
             var businessTrips = new HomeViewModel
@@ -47,6 +22,20 @@ namespace TestDotNet.Controllers
             };
 
             return View(businessTrips);
+        }
+
+        [Route("Home/SaveBusinessTrip/{businessTrip}")]
+        public RedirectToActionResult SaveBusinessTrip(BusinessTrip businessTrip)
+        {
+            _businessTrip.SaveBusinessTrip(businessTrip);
+            return RedirectToAction("Index");
+        }
+
+        [Route("Home/DeleteBusinessTrip/{id}")]
+        public RedirectToActionResult DeleteBusinessTrip(int id)
+        {
+            _businessTrip.DeleteBusinessTrip(id);
+            return RedirectToAction("Index");
         }
     }
 }

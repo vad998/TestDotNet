@@ -20,25 +20,24 @@ namespace TestDotNet.Data.Repository
 
         public BusinessTrip GetBusinessTripById(int businessTripId) => appDBContext.BusinessTrip.FirstOrDefault(b => b.id == businessTripId);
 
-        public int SaveBusinessTrip(BusinessTrip businessTrip)
+        public void SaveBusinessTrip(BusinessTrip businessTrip)
         {
             if (businessTrip.id == default)
             {
-                appDBContext.Entry(businessTrip).State = EntityState.Added;
+                appDBContext.BusinessTrip.Add(businessTrip);
             }
             else
             {
-                appDBContext.Entry(businessTrip).State = EntityState.Modified;
+                appDBContext.BusinessTrip.Update(businessTrip);
             }
 
             appDBContext.SaveChanges();
-
-            return businessTrip.id;
         }
 
-        public void DeleteBusinessTrip(BusinessTrip businessTrip)
+        public void DeleteBusinessTrip(int id)
         {
-            appDBContext.Entry(businessTrip).State = EntityState.Deleted;
+            var businessTrip = GetBusinessTripById(id);
+            appDBContext.BusinessTrip.Remove(businessTrip);
             appDBContext.SaveChanges();
         }
     }
