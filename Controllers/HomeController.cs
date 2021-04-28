@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
 using TestDotNet.Data.Interfaces;
 using TestDotNet.Data.Models;
@@ -32,9 +33,9 @@ namespace TestDotNet.Controllers
         }
 
         [Route("Home/DeleteBusinessTrip/{id}")]
-        public RedirectToActionResult DeleteBusinessTrip(int id)
+        public RedirectToActionResult DeleteBusinessTrip(string id)
         {
-            _businessTrip.DeleteBusinessTrip(id);
+            _businessTrip.DeleteBusinessTrip(Convert.ToInt32(id.Trim(new Char[] { '{', '}' } )));
             return RedirectToAction("Index");
         }
     }
