@@ -30,7 +30,7 @@
                     <td>@trip.city</td>
                     <td>@trip.departureDate.ToString("dd.MM.yyyy")</td>
                     <td>@trip.arrivalDate.ToString("dd.MM.yyyy")</td>
-                    <td><button class="btn btn-primary">Изменить</button></td>
+                    <td><a class="btn btn-primary" href="Home/EditBusinessTrip/{@trip.id}">Изменить</a></td>
                     <td><a href="Home/DeleteBusinessTrip/{@trip.id}" class="btn btn-danger">Удалить</a></td>
                 </tr>
             }
@@ -52,7 +52,7 @@
                         <li>Город</li>
                         <li>Время отъезда</li>
                         <li>Время приезда</li>
-                        <li><button class="btn btn-primary">Изменить</button></li>
+                        <li><a class="btn btn-primary" href="Home/EditBusinessTrip/{@trip.id}">Изменить</a></li>
                     </ul>
                     <ul>
                         <li>@trip.Employee.firstName</li>

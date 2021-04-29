@@ -1,0 +1,33 @@
+@model HomeViewModel
+
+<h2 class="text-center">Редактирование командировки</h2>
+<div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4 offset-sm-1 offset-md-2 offset-lg-3 offset-xl-4 justify-content-center">
+    <form action="SaveBusinessTrip" metod="post" >
+        <input type="hidden" aso-for="Id" name="Id" id="Id" value="@Model.Id">
+        <div class="form-group">
+            <label asp-for="City">Город</label>
+            <input type="text" asp-for="City" name="City" id="City" value="@Model.City" class="form-control" placeholder="Введите город" required>
+        </div>
+        <div class="form-group">
+            <label asp-for="DepartureDate">Время отъезда</label>
+            <input type="date" asp-for="DepartureDate" name="DepartureDate" id="DepartureDate" value='@Model.DepartureDate.ToString("yyyy-MM-dd")' class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label asp-for="ArrivalDate">Время приезда</label>
+            <input type="date" asp-for="ArrivalDate" name="ArrivalDate" id="ArrivalDate" value='@Model.ArrivalDate.ToString("yyyy-MM-dd")' class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label asp-for="EmployeeId">Работник</label>
+            <select asp-for="EmployeeId" name="EmployeeId" id="EmployeeId" class="form-control">
+                @foreach (var employee in Model.Employees)
+                {
+                    <option value="@employee.id" selected="@employee.id.Equals(Model.EmployeeId)">@employee.lastName</option>
+                }
+            </select>
+        </div>
+        <div class="d-flex justify-content-between">
+            <a href="/" class="btn btn-primary">Назад</a>
+            <button type="submit" class="btn btn-primary">Изменить</button>
+        </div>
+    </form>
+</div>
